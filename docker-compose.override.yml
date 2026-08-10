@@ -1,0 +1,7 @@
+# Build the patched builder image for local use (see Dockerfile.builder).
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.builder
+    image: webstudio-local-builder:latest
