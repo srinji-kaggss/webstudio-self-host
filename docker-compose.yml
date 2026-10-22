@@ -1,7 +1,10 @@
 services:
   # ── MinIO (S3-compatible object storage) ────────────────────────────────────
+  # minio/minio and minio/mc left Docker Hub when upstream archived (the last
+  # push predates the CVE-2025-62506 fix). Silo is the maintained MinIO fork:
+  # same S3 API, MINIO_* env and on-disk format; it ships mc and curl.
   minio:
-    image: minio/minio:latest
+    image: pgsty/silo:RELEASE.2026-10-18T00-00-00Z
     restart: always
     command: server /data --console-address ":9001"
     environment:
@@ -20,7 +23,7 @@ services:
 
   # ── MinIO bucket init (runs once) ───────────────────────────────────────────
   minio-init:
-    image: minio/mc:latest
+    image: pgsty/silo:RELEASE.2026-10-18T00-00-00Z
     restart: "no"
     depends_on:
       minio:
